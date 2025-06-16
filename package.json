@@ -14,8 +14,8 @@
     "client:dev": "cd client && npm run dev",
 
     "build": "npm run client:build && npm run build-server",
-    "build-server": "cd server && ./node_modules/.bin/tsc",
-    
+    "build-server":  "cd server && npm install typescript && npx tsc",
+
     "seed": "cd server && npm run seed",
     "render-build": "npm run install && npm run build"
   
