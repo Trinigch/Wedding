@@ -24,17 +24,32 @@ app.use(express.json());
 app.use(routes);
 
 // Servir archivos estáticos del frontend
-const clientDistPath = path.resolve(__dirname, '../client/dist');
+// const clientDistPath = path.resolve(__dirname, '../client/dist');
+// app.use(express.static(clientDistPath));
+const clientDistPath = path.resolve(__dirname, 'client');
 app.use(express.static(clientDistPath));
-
-// Captura todas las rutas que no sean de API y devuelve index.html
+//Captura todas las rutas que no sean de API y devuelve index.html
 app.get('*', (_req, res) => {
   res.sendFile(path.join(clientDistPath, 'index.html'));
 });
-
+/************************************************************* */
 // Iniciar el servidor
 sequelize.sync({ force: forceDatabaseRefresh }).then(() => {
   app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
   });
 });
+  // "scripts": {
+  //   "test": "echo \"Error: no test specified\" && exit 1",
+  //   "start": "npm run client:build && npm run server",
+  //   "start:dev": "concurrently \"npm run server:dev\" \"wait-on tcp:3001 && npm run client:dev\"",
+  //   "server": "cd server && npm start",
+  //   "server:dev": "cd server && npm run dev",
+  //   "install": "cd server && npm install --include=dev && cd ../client && npm install",
+  //   "client:build": "cd client && npm run build",
+  //   "client:dev": "cd client && npm run dev",
+  //   "build": "npm run client:build && npm run build-server",
+  //   "build-server": "cd server && npx tsc",
+  //   "seed": "cd server && npm run seed",
+  //   "render-build": "npm run install && npm run client:build && npm run build-server"
+  // },
