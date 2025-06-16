@@ -41,7 +41,7 @@ const NavList = styled.ul`
 const StyledLink = styled(Link)<{ $active: boolean }>`
   background-color: ${({ $active }) => ($active ? '#e76f51' : '#f4a261')};
   color: white;
-  padding: 10px 22px;
+  padding: 10px 20px;
   border-radius: 30px;
   font-size: 1rem;
   font-weight: 600;
@@ -50,10 +50,10 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   box-shadow: ${({ $active }) =>
     $active ? '0 4px 8px rgba(0,0,0,0.2)' : 'none'};
   
-  /* Permitir salto de línea en el texto */
+  /* Permitir salto de línea y centrar texto */
   white-space: normal;
   text-align: center;
-  max-width: 150px; /* límite de ancho para que no se expanda mucho */
+  max-width: 130px;  /* Para que el botón no sea demasiado ancho */
 
   &:hover {
     background-color: #e76f51;
@@ -63,7 +63,12 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   @media (max-width: 768px) {
     font-size: 0.85rem;
     padding: 8px 16px;
-    max-width: 120px; /* un poco más estrecho en pantallas chicas */
+    max-width: 120px;
+  }
+     @media (max-width: 390px) {
+    font-size: 0.70rem;
+    padding: 8px 16px;
+    max-width: 120px;
   }
 `;
 function Navigation() {
