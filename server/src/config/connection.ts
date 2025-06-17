@@ -8,7 +8,7 @@ console.log('Running in', isProduction ? 'PRODUCTION' : 'DEVELOPMENT', 'mode');
 console.log('DB_NAME:', process.env.DB_NAME);
 console.log('DB_USER:', process.env.DB_USER);
 console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
-console.log('VITE_POSITIONSTACK_API_KEY:', process.env.VITE_POSITIONSTACK_API_KEY);
+//console.log('VITE_POSITIONSTACK_API_KEY:', process.env.VITE_POSITIONSTACK_API_KEY);
 
 console.log('VITE_GOOGLE_MAPS_API_KEY:', process.env.VITE_GOOGLE_MAPS_API_KEY);
 
