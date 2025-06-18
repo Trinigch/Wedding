@@ -54,8 +54,12 @@ const CountdownContainer = styled.div`
     padding: 3px 10px;
   }
 `;
+interface HeaderProps {
+  language: 'en' | 'es';
+  setLanguage: React.Dispatch<React.SetStateAction<'en' | 'es'>>;
+}
 
-const CountdownTimer = () => {
+const CountdownTimer = ({ language }: { language: 'en' | 'es' }) => {
   const calculateTimeLeft = () => {
     const targetDate = new Date("January 24, 2026").getTime();
     const now = new Date().getTime();
@@ -72,7 +76,9 @@ const CountdownTimer = () => {
     return () => clearInterval(timer);
   }, []);
 
-  return <CountdownContainer>{`Countdown ${timeLeft.days} Days`}</CountdownContainer>;
+   const label = language === 'es' ? `Faltan ${timeLeft.days} días` : `Countdown ${timeLeft.days} Days`;
+
+  return <CountdownContainer>{label}</CountdownContainer>;
 };
 
 // function scrollToSection() {
@@ -82,21 +88,22 @@ const CountdownTimer = () => {
 //   }
 // }
 
-function Header() {
+function Header({ language, setLanguage }: HeaderProps) {
 
-
+ 
   return (
     <HeaderContainer>
       <Logo href="/">Trini & Jeremiah</Logo>
 
       <div className="flex flex-wrap items-center justify-center gap-2">
+        <Navigation language={language} setLanguage={setLanguage} />
        
-        <Navigation />
       </div>
 
-      <CountdownTimer />
+      <CountdownTimer  language={language} />
     </HeaderContainer>
   );
 }
 
 export default Header;
+//

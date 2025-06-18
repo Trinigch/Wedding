@@ -1,4 +1,7 @@
 import { Outlet } from 'react-router-dom';
+import { useState } from "react";
+
+import Navigation from "./components/Navigation";
 import Header from './components/Header';
 //import Navigation from './components/Navigation';
 import styled from "styled-components";
@@ -32,11 +35,13 @@ const MainContent = styled.main`
 `;
 
 function App() {
+  const [language, setLanguage] = useState<'en' | 'es'>('en');
   return (
     <AppContainer>
-      <Header />
+      <Header language={language} setLanguage={setLanguage}/>
       <MainContent>
-        <Outlet /> {/* Esto renderiza Home o Feedback según la ruta */}
+         
+        <Outlet context={{ language }}/> {/* Esto renderiza Home o Feedback según la ruta */}
       </MainContent>
       <Footer />
     </AppContainer>
@@ -44,3 +49,5 @@ function App() {
 }
 
 export default App;
+
+// <Navigation language={language} setLanguage={setLanguage} />
