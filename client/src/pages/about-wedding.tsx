@@ -105,8 +105,8 @@ function AboutWedding() {
         title={language === 'es' ? 'Y por último recuerda' : 'And finally remember'}
         text={
           language === 'es'
-            ? 'Lo importante es que vengas con ganas de pasarla bien. Pero si querés hacernos un regalo, acá está nuestro número de cuenta: ~ ~'
-            : 'The important thing is that you come with the desire to have a good time. But if you want to give us a gift, here is our account number: ~ ~'
+            ? 'Lo importante es que vengas con ganas de pasarla bien. Pero si querés hacernos un regalo, acá está nuestro número de cuenta:CBU: 0720109388000002786472 Alias: PILA.DECIDIO.LUZ'
+            : 'The important thing is that you come with the desire to have a good time. But if you want to give us a gift, here is our account number: Venmo ~ Ask Jeremiah'
         }
       />
     </Container>
