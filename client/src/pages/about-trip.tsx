@@ -68,6 +68,18 @@ const ExternalButton = styled.a`
     padding: 5px 15px;
   }
 `;
+
+const IntroText = styled.p`
+  font-style: italic;
+  text-align: center;
+  font-size: 2rem;
+  color: #5a5a5a;
+  margin: 40px 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
 const Section: React.FC<SectionProps>= ({id, image, title, text, reverse = false }) => {
   
   return (
@@ -138,15 +150,23 @@ function Abouttrip (){
 
     return (
     <Container>
-        <Section
+            <IntroText>
+               The wedding is 4 days and 3 nights on an island north of Buenos Aires. During your stay on the island, we’ve covered the cost of the venue and all meals. We’ll also take some excursions off the island while we're there.
+            </IntroText>
+              <Section
                 id="location-section"
-                title="Befour the wedding ~ Iguazu Falls"
+                title="Iguazu Falls"
                 image={IguazuFalls}
                 reverse={false}
                 text={
                     <>
                     <p>
-                        Before the wedding – 3 days, 2 nights, and 1 full day at the Iguazú Falls park.
+                      <b>  Anyone who want to come to Iguazu Falls: </b> 
+Tuesday Jan 20th fly in to Buenos Air to the international airport Ezeiza, EZE, take a taxi or a Bus to the Domestic Airport, its called Aeroparque Jorge Newbery, or AEP. Fly from AEP very near downtown Buenos Aires to Cataratas Del Iguazu, IGR.
+We will meet at a Hotel yet to be choosen.
+Weds Jan 21st we will take the entire day to tour Iguazu falls.
+Thursday Jan 22nd we will fly back to Buenos Aires, stay in San Telmo and the San Telmo Suites.
+Friday Jan 23rd Take boat to Wedding island.
                     </p>
                     <ExternalButton
                         href="https://iguazuargentina.com/en/"
@@ -154,17 +174,21 @@ function Abouttrip (){
                         rel="noopener noreferrer"
                         title="More info about Iguazu Falls"
                     >
-                        IGUAZÚ INFO
+                       IGUAZU FALLS
                     </ExternalButton>
                     </>
                 }
             />
          <Section  
           image={FitzRoy}
-          title="After the wedding ~ Fitz roy"
+          title="Patagonia Trip"
           text={
             <p style={{ fontStyle: "italic", textAlign: "center" }}>
-              treking activitis 3 days
+             On Monday, January 26th, we’ll leave the wedding island and head to Aeroparque (AEP), the domestic airport near downtown Buenos Aires. From there, we’ll fly to El Calafate Airport (FTE). After landing, we’ll take a 2-hour transfer to El Chaltén, a charming town nestled at the base of Mount Fitz Roy.
+On Tuesday, January 27th, we’ll hike through stunning landscapes filled with scenic views, crystal-clear lakes, and snow-capped mountains topped with glaciers.
+On Wednesday, January 28th, we’ll return to El Calafate and rest up for the following day.
+On Friday, January 29th, we’ll visit the breathtaking Perito Moreno Glacier.
+Saturday, January 30th is flexible — you’re welcome to stay longer or begin your journey home.
             </p>
           }
           reverse={true}
