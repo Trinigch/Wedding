@@ -159,6 +159,8 @@ We’re planning additional trips within Argentina before and after the wedding,
 Before the wedding, we’ll visit the breathtaking Iguazú Falls (3 days, 2 nights).
 
 After the wedding, we’ll explore Patagonia to see its famous mountains, lakes, and glaciers (5 days, 4 nights).
+
+<b>Understand: </b> Unfortunately, the international airport is almost an hour away from the domestic airport and with traffic can be two, there is not an easy way around it.
             </IntroText>
               <Section
                 id="location-section"

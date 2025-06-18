@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { sendRSVP } from "../api/rsvpAPI";
-
+import { useOutletContext } from 'react-router-dom';
 const ModalBackground = styled.div`
   position: fixed;
   top: 0;
@@ -102,14 +102,16 @@ const CloseButton = styled.button`
 interface RSVPPopupProps {
   onClose: () => void;
 }
-
+interface LanguageContextType {
+  language: 'en' | 'es';
+}
 const RSVPPopup: React.FC<RSVPPopupProps> = ({ onClose }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
 const [wedding, setWedding] = useState<boolean | null>(null);
 const [iguazu, setIguazu] = useState<boolean | null>(null);
 const [fitzRoy, setFitzRoy] = useState<boolean | null>(null);
-
+const { language } = useOutletContext<LanguageContextType>();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) {
@@ -131,7 +133,7 @@ const [fitzRoy, setFitzRoy] = useState<boolean | null>(null);
   return (
     <ModalBackground onClick={onClose}>
       <ModalContent onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}>
-        <Title>Confirm Your Attendance</Title>
+        <Title>{language === 'es' ? 'Confirmar asistencia' : 'Confirm Your Attendance'}</Title>
         <form onSubmit={handleSubmit}>
           <Label htmlFor="name">Name *</Label>
           <Input
@@ -142,7 +144,7 @@ const [fitzRoy, setFitzRoy] = useState<boolean | null>(null);
             required
           />
 
-                <Label>Wedding</Label>
+               <Label>{language === 'es' ? '¿Venis a la boda?' : 'Wedding'}</Label>
           <YesNoContainer>
             <YesNoButton
               type="button"
@@ -162,43 +164,48 @@ const [fitzRoy, setFitzRoy] = useState<boolean | null>(null);
             </YesNoButton>
           </YesNoContainer>
 
-          <Label>Iguazú Falls Trip</Label>           
-          <YesNoContainer>
-            <YesNoButton
-              type="button"
-              selected={iguazu === true}
-              onClick={() => setIguazu(true)}
-            >
-              ✅
-            </YesNoButton>
-            <YesNoButton
-              type="button"
-              selected={iguazu === false}
-              onClick={() => setIguazu(false)}
-            aria-label="No"
-            >
-              ❌
-            </YesNoButton>
-          </YesNoContainer>
+         {language === 'en' && (
+              <>
+                <Label>Iguazú Falls Trip</Label>           
+                <YesNoContainer>
+                  <YesNoButton
+                    type="button"
+                    selected={iguazu === true}
+                    onClick={() => setIguazu(true)}
+                  >
+                    ✅
+                  </YesNoButton>
+                  <YesNoButton
+                    type="button"
+                    selected={iguazu === false}
+                    onClick={() => setIguazu(false)}
+                    aria-label="No"
+                  >
+                    ❌
+                  </YesNoButton>
+                </YesNoContainer>
 
-          <Label>Fitz Roy Trip</Label>
-          <YesNoContainer>
-            <YesNoButton
-              type="button"
-              selected={fitzRoy === true}
-              onClick={() => setFitzRoy(true)}
-            >
-              ✅
-            </YesNoButton>
-            <YesNoButton
-              type="button"
-              selected={fitzRoy === false}
-              onClick={() => setFitzRoy(false)}
-             aria-label="No"
-              >
-                ❌
-            </YesNoButton>
-          </YesNoContainer>
+                <Label>Fitz Roy Trip</Label>
+                <YesNoContainer>
+                  <YesNoButton
+                    type="button"
+                    selected={fitzRoy === true}
+                    onClick={() => setFitzRoy(true)}
+                  >
+                    ✅
+                  </YesNoButton>
+                  <YesNoButton
+                    type="button"
+                    selected={fitzRoy === false}
+                    onClick={() => setFitzRoy(false)}
+                    aria-label="No"
+                  >
+                    ❌
+                  </YesNoButton>
+                </YesNoContainer>
+              </>
+            )}
+
 
           <Label htmlFor="email">Email (optional)</Label>
           <Input
@@ -208,10 +215,14 @@ const [fitzRoy, setFitzRoy] = useState<boolean | null>(null);
             onChange={(e : React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
           />
 
-          <SubmitButton type="submit">Send RSVP</SubmitButton>
+          <SubmitButton type="submit">
+             {language === 'es' ? 'Enviar RSVP' : 'Send RSVP'}
+          </SubmitButton>
         </form>
 
-        <CloseButton onClick={onClose}>Cancel</CloseButton>
+        <CloseButton onClick={onClose}>
+            {language === 'es' ? 'Cancelar' : 'Cancel'}
+        </CloseButton>
       </ModalContent>
     </ModalBackground>
   );
