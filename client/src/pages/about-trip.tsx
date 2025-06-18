@@ -151,7 +151,14 @@ function Abouttrip (){
     return (
     <Container>
             <IntroText>
-               The wedding is 4 days and 3 nights on an island north of Buenos Aires. During your stay on the island, we’ve covered the cost of the venue and all meals. We’ll also take some excursions off the island while we're there.
+              The wedding is 4 days and 3 nights on an island north of Buenos Aires.
+During your stay on the island, we’ve covered the cost of the venue and all meals. We’ll also take a few excursions off the island while we're there.
+
+We’re planning additional trips within Argentina before and after the wedding, and everyone is welcome to join — I’ll be your tour guide!
+
+Before the wedding, we’ll visit the breathtaking Iguazú Falls (3 days, 2 nights).
+
+After the wedding, we’ll explore Patagonia to see its famous mountains, lakes, and glaciers (5 days, 4 nights).
             </IntroText>
               <Section
                 id="location-section"
@@ -163,7 +170,7 @@ function Abouttrip (){
                     <p>
                       <b>  Anyone who want to come to Iguazu Falls: </b> 
 Tuesday Jan 20th fly in to Buenos Air to the international airport Ezeiza, EZE, take a taxi or a Bus to the Domestic Airport, its called Aeroparque Jorge Newbery, or AEP. Fly from AEP very near downtown Buenos Aires to Cataratas Del Iguazu, IGR.
-We will meet at a Hotel yet to be choosen.
+We will meet at a Hotel yet to be choosen.~ we will update~
 Weds Jan 21st we will take the entire day to tour Iguazu falls.
 Thursday Jan 22nd we will fly back to Buenos Aires, stay in San Telmo and the San Telmo Suites.
 Friday Jan 23rd Take boat to Wedding island.
