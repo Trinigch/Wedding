@@ -1,13 +1,14 @@
 import { useLocation } from 'react-router-dom';
 import { HashLink as Link } from 'react-router-hash-link';
 import styled from 'styled-components';
-import { useState } from 'react';
+
 
 const Nav = styled.nav`
   padding: 1rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  flex-wrap: wrap;
+  gap: 0.5rem;
 `;
 
 const NavList = styled.ul`
@@ -16,7 +17,7 @@ const NavList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
-  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
 `;
 
@@ -64,7 +65,17 @@ const FlagButton = styled.button<{ selected: boolean }>`
   &:hover {
     transform: scale(1.2);
   }
+    
 `;
+const LanguageList = styled.ul`
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+`;
+
 interface NavigationProps {
   language: 'en' | 'es';
   setLanguage: React.Dispatch<React.SetStateAction<'en' | 'es'>>;
@@ -80,38 +91,40 @@ function Navigation({ language, setLanguage }: NavigationProps) {
   ];
 
   return (
-    <Nav>
-      <NavList>
-              <li>
-          <FlagButton
-            onClick={() => setLanguage('es')}
-            selected={language === 'es'}
-            aria-label="Español"
-            title="Español"
-          >
-            🇦🇷
-          </FlagButton>
-        </li>
-        <li>
-          <FlagButton
-            onClick={() => setLanguage('en')}
-            selected={language === 'en'}
-            aria-label="English"
-            title="English"
-          >
-            🇺🇸
-          </FlagButton>
-        </li>
-        {sections.map(({ name, path }) => (
-          <li key={name}>
-            <StyledLink to={path} $active={location.pathname === path}>
-              {name}
-            </StyledLink>
-          </li>
-        ))}
-  
-      </NavList>
-    </Nav>
+          <Nav>
+          <LanguageList>
+            <li>
+              <FlagButton
+                onClick={() => setLanguage('es')}
+                selected={language === 'es'}
+                aria-label="Español"
+                title="Español"
+              >
+                🇦🇷
+              </FlagButton>
+            </li>
+            <li>
+              <FlagButton
+                onClick={() => setLanguage('en')}
+                selected={language === 'en'}
+                aria-label="English"
+                title="English"
+              >
+                🇺🇸
+              </FlagButton>
+            </li>
+          </LanguageList>
+
+          <NavList>
+            {sections.map(({ name, path }) => (
+              <li key={name}>
+                <StyledLink to={path} $active={location.pathname === path}>
+                  {name}
+                </StyledLink>
+              </li>
+            ))}
+          </NavList>
+        </Nav>
   );
 }
 
