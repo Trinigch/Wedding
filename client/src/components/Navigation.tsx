@@ -25,7 +25,7 @@ const StyledLink = styled(Link)<{ $active: boolean }>`
   color: white;
   padding: 10px 20px;
   border-radius: 30px;
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-decoration: none;
   transition: background-color 0.3s, transform 0.2s;
@@ -82,14 +82,7 @@ function Navigation({ language, setLanguage }: NavigationProps) {
   return (
     <Nav>
       <NavList>
-        {sections.map(({ name, path }) => (
-          <li key={name}>
-            <StyledLink to={path} $active={location.pathname === path}>
-              {name}
-            </StyledLink>
-          </li>
-        ))}
-        <li>
+              <li>
           <FlagButton
             onClick={() => setLanguage('es')}
             selected={language === 'es'}
@@ -109,6 +102,14 @@ function Navigation({ language, setLanguage }: NavigationProps) {
             🇺🇸
           </FlagButton>
         </li>
+        {sections.map(({ name, path }) => (
+          <li key={name}>
+            <StyledLink to={path} $active={location.pathname === path}>
+              {name}
+            </StyledLink>
+          </li>
+        ))}
+  
       </NavList>
     </Nav>
   );

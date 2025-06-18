@@ -4,6 +4,7 @@ interface WhoscomingProps {
   weddingNames: string[];
   iguazuNames: string[];
   fitzRoyNames: string[];
+  language: 'en' | 'es';
 }
 
 const Container = styled.div`
@@ -47,13 +48,14 @@ const Name = styled.li`
 const Whoscoming: React.FC<WhoscomingProps> = ({
   weddingNames,
   iguazuNames,
-  fitzRoyNames
+  fitzRoyNames, 
+  language
 }) => {
   return (
     <Container>
       <Grid>
         <Card>
-          <CardTitle>💒 Wedding</CardTitle>
+          <CardTitle>💒 {language === 'es' ? 'Boda' : 'Wedding'}</CardTitle>
          {weddingNames.length > 0 ? (
         <ul>
           {weddingNames
@@ -64,8 +66,9 @@ const Whoscoming: React.FC<WhoscomingProps> = ({
         </ul>
       ) : <p>No RSVPs yet</p>}
         </Card>
-
-        <Card>
+    {language === 'en' && (
+      <>
+            <Card>
           <CardTitle>🌴 Iguazú Trip</CardTitle>
           {iguazuNames.length > 0 ? (
             <ul>
@@ -75,6 +78,8 @@ const Whoscoming: React.FC<WhoscomingProps> = ({
             </ul>
           ) : <p>No RSVPs yet</p>}
         </Card>
+     
+  
 
         <Card>
           <CardTitle>🏔 Fitz Roy Trip</CardTitle>
@@ -86,6 +91,8 @@ const Whoscoming: React.FC<WhoscomingProps> = ({
             </ul>
           ) : <p>No RSVPs yet</p>}
         </Card>
+         </>
+    )}
       </Grid>
     </Container>
   );

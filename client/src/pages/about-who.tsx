@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-
 import axios from 'axios';
 import Whoscoming from '../components/Whoscoming';
+import { useOutletContext } from 'react-router-dom';
 
 
 interface RSVP {
@@ -10,8 +10,11 @@ interface RSVP {
   iguazu: boolean | null;
   fitzRoy: boolean | null;
 }
-
+interface LanguageContextType {
+  language: 'en' | 'es';
+}
 function WhoPage() {
+  const { language } = useOutletContext<LanguageContextType>();
   const [weddingNames, setWeddingNames] = useState<string[]>([]);
   const [iguazuNames, setIguazuNames] = useState<string[]>([]);
   const [fitzRoyNames, setFitzRoyNames] = useState<string[]>([]);
@@ -43,6 +46,7 @@ function WhoPage() {
       iguazuNames={iguazuNames}
       weddingNames={weddingNames}
       fitzRoyNames={fitzRoyNames}
+      language={language}
     />
   );
 }
