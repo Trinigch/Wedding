@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import IguazuFalls from "./../assets/img/iguazu.png";
 import FitzRoy from "./../assets/img/Fitz_Roy.jpg";
+import itinerary from "./../assets/img/Itinerary.jpeg";
 
 interface SectionProps {
   id?: string;
@@ -145,7 +146,29 @@ const SectionText = styled.p`
   font-style: italic;
   margin-top: 15px 0px;
 `;
+const FullWidthImage = styled.img`
+  width: 80%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 10px;
+  margin: 40px 0;
 
+  @media (max-width: 768px) {
+    width: 90%;
+    border-radius: 10px;  // Mantiene esquinas redondeadas pero no la hace circular
+  }
+`;
+const ItineraryTitle = styled.h2`
+  font-family: "Playfair Display", serif;
+  font-size: 3rem;
+  color: #333;
+  margin: 30px 0 10px 0;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+`;
 function Abouttrip (){
 
     return (
@@ -202,7 +225,8 @@ Saturday, January 30th is flexible — you’re welcome to stay longer or begin 
           }
           reverse={true}
         />   
-   
+    <ItineraryTitle>Our Adventure Plan</ItineraryTitle>
+    <FullWidthImage src={itinerary} alt="Itinerary" />
     </Container>
 
     )
