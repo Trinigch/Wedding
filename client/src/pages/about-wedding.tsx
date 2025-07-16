@@ -35,6 +35,10 @@ function AboutWedding() {
   const coords = useGeolocation(" Delta Buenos Aires, Argentina");
 
   const [isRSVPOpen, setIsRSVPOpen] = useState(false);
+  const handleNewRSVP = () => {
+ // alert(language === 'es' ? '¡Gracias por confirmar!' : 'Thank you!');
+  setIsRSVPOpen(false);
+};
   return (
     <Container>
       <ImageContainer>
@@ -51,10 +55,9 @@ function AboutWedding() {
         image={LugarImage}
         text={
           language === 'es'
-            ? 'Queremos que seas parte de este capítulo especial en nuestra historia. La ceremonia se llevará a cabo en la capilla del Convento San Francisco y la celebración será justo al lado, en Senador Dupont.'
+            ? 'Queremos que seas parte de este capítulo especial en nuestra historia. La ceremonia se llevará a cabo en la capilla del Convento San Francisco.'
             : `We’d love for you to join this special chapter in our story. 
-              The ceremony will be held in the chapel of the San Francisco Convent, 
-              and the celebration will follow right next door at Senador Dupont.`
+              The ceremony will be held in the chapel of the San Francisco Convent.`
         }
       />
   {coords && (
@@ -98,7 +101,13 @@ function AboutWedding() {
         </ConfirmationText>
       </ConfirmationSection>
 
-      {isRSVPOpen && <RSVPPopup onClose={() => setIsRSVPOpen(false)} />}
+    
+       {isRSVPOpen && (
+          <RSVPPopup
+            onClose={() => setIsRSVPOpen(false)}
+            onNewRSVP={handleNewRSVP}
+          />
+        )}
       
       <Section
         image={backgroundImage}

@@ -1,11 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { useState } from "react";
-
-import Navigation from "./components/Navigation";
 import Header from './components/Header';
 //import Navigation from './components/Navigation';
 import styled from "styled-components";
 import Footer from './components/Footer';
+import { RSVPProvider } from "./context/RSVPContext";
 
 // Estilos
 const AppContainer = styled.div`
@@ -37,6 +36,7 @@ const MainContent = styled.main`
 function App() {
   const [language, setLanguage] = useState<'en' | 'es'>('en');
   return (
+     <RSVPProvider>
     <AppContainer>
       <Header language={language} setLanguage={setLanguage}/>
       <MainContent>
@@ -45,6 +45,7 @@ function App() {
       </MainContent>
       <Footer />
     </AppContainer>
+    </RSVPProvider>
   );
 }
 

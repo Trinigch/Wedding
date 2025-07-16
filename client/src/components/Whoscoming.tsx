@@ -1,12 +1,14 @@
 import styled from "styled-components";
-
-interface WhoscomingProps {
-  weddingNames: string[];
-  iguazuNames: string[];
-  fitzRoyNames: string[];
-  language: 'en' | 'es';
+import { useRSVPContext } from "../context/RSVPContext";
+import { useOutletContext } from 'react-router-dom';
+import { useEffect, useState } from "react";
+interface RSVP {
+  name: string;
+  email: string;
+  wedding: boolean | null;
+  iguazu: boolean | null;
+  fitzRoy: boolean | null;
 }
-
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
@@ -45,54 +47,54 @@ const Name = styled.li`
   margin: 4px 0;
 `;
 
-const Whoscoming: React.FC<WhoscomingProps> = ({
-  weddingNames,
-  iguazuNames,
-  fitzRoyNames, 
-  language
-}) => {
-  return (
+const Whoscoming = () => {
+  const [rsvps, setRsvps] = useState<RSVP[]>([]);
+
+useEffect(() => {
+  const stored = localStorage.getItem("rsvpList");
+  if (stored) {
+    setRsvps(JSON.parse(stored));
+  }
+}, []);
+
+  const { language } = useOutletContext<{ language: 'en' | 'es' }>();
+
+  const weddingNames = rsvps.filter(r => r.wedding).map(r => r.name);
+  const iguazuNames = rsvps.filter(r => r.iguazu).map(r => r.name);
+  const fitzRoyNames = rsvps.filter(r => r.fitzRoy).map(r => r.name);
+ return (
     <Container>
       <Grid>
         <Card>
           <CardTitle>💒 {language === 'es' ? 'Boda' : 'Wedding'}</CardTitle>
-         {weddingNames.length > 0 ? (
-        <ul>
-          {weddingNames
-            .filter(name => name.trim() !== "") // evita strings vacíos
-            .map((name, i) => (
-              <Name key={i}>{name}</Name>
-            ))}
-        </ul>
-      ) : <p>No RSVPs yet</p>}
+          <ul>
+            {weddingNames.length > 0
+              ? weddingNames.map((name, i) => <Name key={i}>{name}</Name>)
+              : <p>No RSVPs yet</p>}
+          </ul>
         </Card>
-    {language === 'en' && (
-      <>
-            <Card>
-          <CardTitle>🌴 Iguazú Trip</CardTitle>
-          {iguazuNames.length > 0 ? (
-            <ul>
-              {iguazuNames
-                .filter(name => name.trim() !== "")
-                .map((name, i) => <Name key={i}>{name}</Name>)}
-            </ul>
-          ) : <p>No RSVPs yet</p>}
-        </Card>
-     
-  
 
-        <Card>
-          <CardTitle>🏔 Fitz Roy Trip</CardTitle>
-          {fitzRoyNames.length > 0 ? (
-            <ul>
-              {fitzRoyNames
-                .filter(name => name.trim() !== "")
-                .map((name, i) => <Name key={i}>{name}</Name>)}
-            </ul>
-          ) : <p>No RSVPs yet</p>}
-        </Card>
-         </>
-    )}
+        {language === 'en' && (
+          <>
+            <Card>
+              <CardTitle>🌴 Iguazú Trip</CardTitle>
+              <ul>
+                {iguazuNames.length > 0
+                  ? iguazuNames.map((name, i) => <Name key={i}>{name}</Name>)
+                  : <p>No RSVPs yet</p>}
+              </ul>
+            </Card>
+
+            <Card>
+              <CardTitle>🏔 Fitz Roy Trip</CardTitle>
+              <ul>
+                {fitzRoyNames.length > 0
+                  ? fitzRoyNames.map((name, i) => <Name key={i}>{name}</Name>)
+                  : <p>No RSVPs yet</p>}
+              </ul>
+            </Card>
+          </>
+        )}
       </Grid>
     </Container>
   );

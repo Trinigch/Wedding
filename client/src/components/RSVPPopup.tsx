@@ -1,8 +1,21 @@
 // src/components/RSVPPopup.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import styled from "styled-components";
-import { sendRSVP } from "../api/rsvpAPI";
+import emailjs from "@emailjs/browser";
+//import { sendRSVP } from "../api/rsvpAPI";
+import { useRSVPContext } from "../context/RSVPContext";
 import { useOutletContext } from 'react-router-dom';
+
+interface RSVP {
+  name: string;
+  email: string;
+  wedding: boolean | null;
+  iguazu: boolean | null;
+  fitzRoy: boolean | null;
+}
+
+
+
 const ModalBackground = styled.div`
   position: fixed;
   top: 0;
@@ -98,37 +111,80 @@ const CloseButton = styled.button`
   text-decoration: underline;
   cursor: pointer;
 `;
-
 interface RSVPPopupProps {
   onClose: () => void;
+  onNewRSVP: (rsvp: RSVP) => void;
 }
+// interface RSVPPopupProps {
+//   onClose: () => void;
+// }
 interface LanguageContextType {
   language: 'en' | 'es';
 }
-const RSVPPopup: React.FC<RSVPPopupProps> = ({ onClose }) => {
-const [name, setName] = useState("");
-const [email, setEmail] = useState("");
-const [wedding, setWedding] = useState<boolean | null>(null);
-const [iguazu, setIguazu] = useState<boolean | null>(null);
-const [fitzRoy, setFitzRoy] = useState<boolean | null>(null);
-const { language } = useOutletContext<LanguageContextType>();
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name.trim()) {
-      alert("Please enter your name.");
-      return;
-    }
+const RSVPPopup: React.FC<RSVPPopupProps> = ({ onClose, onNewRSVP }) => {
+    const storedData = localStorage.getItem("rsvpFormData");
+  const initialData = storedData ? JSON.parse(storedData) : {};
 
-    // Enviar datos a la db wedding_db
-  try {
-    await sendRSVP({ name, email, wedding, iguazu, fitzRoy });
-    alert("Thank you for confirming!");
-    onClose();
-  } catch (err) {
-    console.error("Error sending RSVP", err);
-    alert("Something went wrong. Please try again.");
+  const [name, setName] = useState(initialData.name || "");
+  const [email, setEmail] = useState(initialData.email || "");
+  const [wedding, setWedding] = useState<boolean | null>(initialData.wedding ?? null);
+  const [iguazu, setIguazu] = useState<boolean | null>(initialData.iguazu ?? null);
+  const [fitzRoy, setFitzRoy] = useState<boolean | null>(initialData.fitzRoy ?? null);
+
+  const { addRSVP } = useRSVPContext();
+  const { language } = useOutletContext<LanguageContextType>();
+
+useEffect(() => {
+  const data = { name, email, wedding, iguazu, fitzRoy };
+  localStorage.setItem("rsvpFormData", JSON.stringify(data));
+}, [name, email, wedding, iguazu, fitzRoy]);
+
+ const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const newRSVP = { name, email, wedding, iguazu, fitzRoy };
+ // Enviar correo con EmailJS
+   emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID!,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID!,
+      {
+        to_name: "Trini",           // podés poner directamente tu nombre
+        from_name: name,            // del invitado
+        name,
+        email,
+        wedding: wedding ? "✅ Yes" : wedding === false ? "❌ No" : "No response",
+        iguazu: iguazu ? "✅ Yes" : iguazu === false ? "❌ No" : "N/A",
+        fitzRoy: fitzRoy ? "✅ Yes" : fitzRoy === false ? "❌ No" : "N/A",
+      },
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
+     ) .then(
+  (result) => {
+    console.log("Email sent:", result.text);
+  },
+  (error) => {
+    console.error("Email error:", error);
   }
+);
+
+  // Guardar en contexto (si lo usás)
+  addRSVP(newRSVP);
+  onNewRSVP(newRSVP);
+
+  // Guardar en localStorage
+      const stored = localStorage.getItem("rsvpList");
+      console.log( "localStorage",  stored )
+      const existing: RSVP[] = stored ? JSON.parse(stored) : [];
+      localStorage.setItem("rsvpList", JSON.stringify([...existing, newRSVP]));
+    // Limpiar localStorage del formulario
+      localStorage.removeItem("rsvpFormData");
+      console.log( "localStorage", localStorage)
+  // Mostrar mensaje
+    alert(language === 'es' ? "¡Gracias por confirmar!" : "Thanks for confirming!");
+
+  // Cerrar popup
+  onClose();
 };
+
 
   return (
     <ModalBackground onClick={onClose}>

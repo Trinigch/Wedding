@@ -14,6 +14,8 @@ const forceDatabaseRefresh = false;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
+
 // Middleware
 app.use(cors({
   origin: 'http://localhost:3000', // puedes cambiar esto por tu frontend en producción
@@ -34,11 +36,18 @@ app.get('*', (_req, res) => {
 });
 /************************************************************* */
 // Iniciar el servidor
-sequelize.sync({ force: forceDatabaseRefresh }).then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+if (sequelize) {
+  sequelize.sync({ force: forceDatabaseRefresh }).then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}`);
+    });
   });
-});
+} else {
+  // Iniciar el servidor igual, pero sin DB
+  app.listen(PORT, () => {
+    console.log(`Server is running WITHOUT database on port ${PORT}`);
+  });
+}
   // "scripts": {
   //   "test": "echo \"Error: no test specified\" && exit 1",
   //   "start": "npm run client:build && npm run server",
