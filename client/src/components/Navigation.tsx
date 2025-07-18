@@ -87,7 +87,7 @@ function Navigation({ language, setLanguage }: NavigationProps) {
   const sections = [
     { name: language === 'es' ? '¿Dónde?' : 'Where?', path: '/about-wedding#location-section' },
     ...(language === 'en' ? [{ name: 'Trips', path: '/about-trip' }] : []),
-    { name: language === 'es' ? '¿Quién viene?' : "Who's Coming?", path: '/about-who' },
+  //  { name: language === 'es' ? '¿Quién viene?' : "Who's Coming?", path: '/about-who' },
   ];
 
   return (
